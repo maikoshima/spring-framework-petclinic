@@ -66,3 +66,11 @@ stages:
               appType: webAppLinux
               appName: $(webAppName)
               package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
+          - task: AzureCLI@2
+            displayName: Azure CLI
+            inputs:
+              azureSubscription: $(azureSubscription)
+              scriptType: ps
+              scriptLocation: inlineScript
+              inlineScript: |
+                az tag create --resource-id /subscriptions/4e1f01e0-9a42-40da-9e9b-5806c224bc1c/resourceGroups/2205300060000815-rg/providers/Microsoft.Web/sites/2205300060000815-linux-java-app --tags HOGE=hoge
